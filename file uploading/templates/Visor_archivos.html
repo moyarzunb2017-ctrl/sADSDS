@@ -1,0 +1,55 @@
+<html>
+   <head>
+      <title>success</title>
+   </head>
+   <body>
+       <h1>Lista de archivos</h1>
+      <ol> 
+        {%for i in range(0, num_archivos)%}   
+	      <li>
+		    {{ files[i]}}   
+            <form action = "/delete" method = "post"> 
+               <input type="submit" value= "eliminar" />
+               <input type="hidden" id="name2" name="to_be_deleted" value="{{ files[i] }}"/>
+		    </form>
+            <form action = "/rename" method = "post"> 
+               <label for="name">Nuevo Nombre: </label>
+               <input type="text" id="name" name="newname" /><br>
+               <input type="hidden" id="oldname" name="oldname" value="{{ files[i] }}"/>
+               <input type="submit" id="send-signup" name="signup" value="Cambiar"/>
+		    </form>
+	      </li>
+         {%endfor%}       
+      </ol>
+      <form action = "/reload_index" method = "post">  
+        <input type="submit" value="volver a la pagina anterior"  />
+      </form> 
+      <h2>Calcular tamaño archivos</h2> 
+       <p>Seleccione los archivos deseados para calcular su tamaño:</p>
+    <form method="post">
+        {% for item in files %}
+            <label>
+                <input type="checkbox" name="selected" value="{{ item }}"
+                       {% if item in selected %}checked{% endif %}>
+                {{ item }}
+            </label>
+            <br>
+        {% endfor %}
+
+        <button type="submit">Seleccionar</button>
+    </form>
+
+    {% if selected %}
+        <h2>You selected:</h2>
+        <ul>
+        {% for key, value in selected.items() %}
+            <li>{{ key }}  {{ value }}  </li>
+        {% endfor %}
+        </ul>
+        {% if pesos != 0 %}
+          <p>El tamaño de los archivos es: {{pesos}}</p>
+        {% endif %}
+    {% endif %}
+   </body>
+</html>
+

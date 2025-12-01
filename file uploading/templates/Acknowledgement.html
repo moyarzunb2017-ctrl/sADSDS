@@ -1,0 +1,15 @@
+<html>
+   <head>
+      <title>success</title>
+   </head>
+   <body>
+      <p>File uploaded successfully</p>
+      <p>File Name: {{name}}</p>
+      <p>Pagina2: {{page}}</p>
+      <ol> 
+ {%for i in range(0, page)%} <li>{{ file.pages[i].extract_text() }}</li> {%endfor%} 
+</ol>
+       
+   </body>
+</html>
+
